@@ -1,16 +1,16 @@
 import 'dart:async';
 
 import 'package:flutter/widgets.dart';
+import 'package:secure_application/secure_application_controller.dart';
 import 'package:secure_application/secure_application_native.dart';
 import 'package:secure_application/secure_application_provider.dart';
 import 'package:secure_application/secure_application_state.dart';
-import 'package:secure_application/secure_application_controller.dart';
 
 export './secure_application.dart';
-export './secure_gate.dart';
+export './secure_application_controller.dart';
 export './secure_application_provider.dart';
 export './secure_application_state.dart';
-export './secure_application_controller.dart';
+export './secure_gate.dart';
 
 /// Widget that will manage Secure Gates and visibility protection for your app content
 ///
@@ -99,7 +99,7 @@ class _SecureApplicationState extends State<SecureApplication>
       }
     });
     super.initState();
-    WidgetsBinding.instance!.addObserver(this);
+    WidgetsBinding.instance.addObserver(this);
     SecureApplicationNative.registerForEvents(
         secureApplicationController.lockIfSecured,
         secureApplicationController.unlock);
@@ -109,7 +109,7 @@ class _SecureApplicationState extends State<SecureApplication>
   void dispose() {
     _authStreamSubscription?.cancel();
     super.dispose();
-    WidgetsBinding.instance!.removeObserver(this);
+    WidgetsBinding.instance.removeObserver(this);
   }
 
   @override
@@ -131,7 +131,7 @@ class _SecureApplicationState extends State<SecureApplication>
               if (authStatus != null)
                 secureApplicationController.sendAuthenticationEvent(authStatus);
 
-              WidgetsBinding.instance!.addPostFrameCallback((_) {
+              WidgetsBinding.instance.addPostFrameCallback((_) {
                 secureApplicationController.unpause();
               });
             }
